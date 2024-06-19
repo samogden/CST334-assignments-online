@@ -1,4 +1,4 @@
-# CST334 Lab 2
+# CST334 Lab 1
 
 ## Background
 
