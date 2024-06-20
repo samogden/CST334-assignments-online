@@ -41,7 +41,7 @@ Because this folder was mounted with the `-v ${PWD}:/tmp/lab` flag when we start
 
 Type the following into your terminal:
 ```bash
-git clone https://github.com/samogden/CST334-assignments
+git clone https://github.com/samogden/CST334-assignments-online CST334-assignments
 ```
 
 This will download the a git repository containing the lab data files.
