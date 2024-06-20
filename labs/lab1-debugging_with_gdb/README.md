@@ -29,7 +29,7 @@ This looks similar to when we have comments so understanding the context is key!
 After you have pulled the latest docker container, navigate to your working directory and start docker like you did for the last lab.
 
 ```shell
-/Users/ssogden/repos/classes/CST334-assignments/
+/Users/ssogden/repos/classes/CST334-assignments-online/
 $ docker run -it --rm -v ${PWD}:/tmp/lab samogden/cst334
 [DOCKER] /tmp/ $ 
 ```

@@ -37,19 +37,19 @@ Because this folder was mounted with the `-v ${PWD}:/tmp/lab` flag when we start
 
 Type the following into your terminal:
 ```bash
-git clone https://github.com/samogden/CST334-assignments
+git clone https://github.com/samogden/CST334-assignments-online
 ```
 
 This will download the a git repository containing the lab data files.
 To change to the directory containing the files for this lab (including a copy of this file) run the below commands.
 
 ```bash
-cd CST334-assignments
+cd CST334-assignments-online
 cd labs
 cd lab1-intro_to_c
 ```
 
-Note that you can run all of these commands on a single line as `cd CST334-assignments/labs/lab1-intro_to_c`.
+Note that you can run all of these commands on a single line as `cd CST334-assignments-online/labs/lab1-intro_to_c`.
 
 ## Step 2: Open the starter code
 

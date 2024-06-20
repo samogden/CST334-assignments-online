@@ -24,7 +24,7 @@ Before we get started, let's check for updates to the docker image by running:
 docker pull samogden/cst334
 ```
 
-Then, navigate using your terminal on your local machine to your working directory (i.e. the github repo `CST334-assignments`) and run the below command to start docker:
+Then, navigate using your terminal on your local machine to your working directory (i.e. the github repo `CST334-assignments-online`) and run the below command to start docker:
 ```shell
 docker run -it --rm -v ${PWD}:/tmp/programming samogden/cst334
 ```

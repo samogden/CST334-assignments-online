@@ -17,7 +17,7 @@ def parse_flags():
   
   parser.add_argument(
     "--input_directory",
-    default="/Users/ssogden/repos/classes/CST334-assignments/programming-assignments/PA2/tests"
+    default="/Users/ssogden/repos/classes/CST334-assignments-online/programming-assignments/PA2/tests"
   )
   parser.add_argument(
     "--output_file",
