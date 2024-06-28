@@ -63,5 +63,7 @@ Test(String, find_first_index, .disabled=false) {
 Test(String, find_last_index, .disabled=false) {
     char test_str[] = "helLo";
     // Question: What is this unit test actually testing?  What implications are there?
+    //   Answer: This test validates that the last occurence of 'l' in the test_str is
+    //           at index 3.
     cr_assert(find_last_index(test_str, 'l') == 3);
 }

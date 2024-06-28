@@ -25,9 +25,9 @@ typedef struct Person {
 
 typedef struct Group {
     // We want a group of up to GROUP_MAX_SIZE, with a count of how many people we have
-    void* group_name; // todo: Pick an appropriate type for this!
-    void* group_members[GROUP_MAX_SIZE]; // todo: Pick an appropriate type for this!
-    void* num_members; // todo: Pick an appropriate type for this!
+    char group_name[50];
+    Person* group_members[GROUP_MAX_SIZE];
+    int num_members;
 } Group;
 
 Person person_make_new(char* first_name, char* last_name, int age);

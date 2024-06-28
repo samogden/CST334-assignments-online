@@ -3,7 +3,7 @@
 
 typedef struct Person {
     int age;
-    char name[8];
+    char name[1024];
     int favorite_number;
 } Person;
 
