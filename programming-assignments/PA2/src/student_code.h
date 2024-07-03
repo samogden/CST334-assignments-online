@@ -1,4 +1,8 @@
-
+/**
+Author: Ichiro Miyasato
+Assignment: Programming Assignment 2
+Date: 02 July 2024
+ */
 #include "process_scheduling.h"
 
 #ifndef CST334_ASSIGNMENTS_SOLUTIONS_STUDENT_CODE_H
