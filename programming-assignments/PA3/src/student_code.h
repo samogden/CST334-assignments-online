@@ -1,3 +1,8 @@
+/**
+Author: Ichiro Miyasato
+Assignment: Programming Assignment 3
+Date: 09 July 2024
+ */
 #ifndef __student_code_h__
 #define __student_code_h__
 

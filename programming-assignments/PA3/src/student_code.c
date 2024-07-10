@@ -1,3 +1,8 @@
+/**
+Author: Ichiro Miyasato
+Assignment: Programming Assignment 3
+Date: 09 July 2024
+ */
 #include <fcntl.h>
 #include <stdio.h>
 #include <sys/mman.h>
@@ -93,120 +98,135 @@ int destroy() {
 
 
 node_t * find_first_free_chunk(size_t size, node_t* starting_node) {
-  // todo
+  node_t* track_node = starting_node;
+  while(track_node!= NULL){
+  // if the node is free and less than or equal to size, return that node
+    if(track_node->size >= size && track_node->is_free){
+      return track_node;
+    }
+  // go on to the next node until you get to an empty node
+    track_node = track_node->fwd;
+  }
+
+  return NULL;
 }
 
 void split_node(node_t* node, size_t size) {
-
   node_t* next = node->fwd;
-
-  if (node->size == size){
-    // Then the node is exactly the right size
-    // todo
-  } else if(node->size - size < sizeof(node_t)){
-    // Then the node is bigger than requested, but too small to split
-    // todo
-  }
-  else {
+  // node will be unfree in any case
+  node->is_free = false;
+  // If the node is neither the exact right size nor bigger than requested, though too small to split
+  if(!(node->size == size) && !(node->size - size < sizeof(node_t))) {
     // If the requested memory does not take up the entire free chunk, we need to
     // to split that chunk and add a new node to the free list.
-
-    // todo
+    node_t* new_node = (node_t*)((char*)node + sizeof(node_t) + size);
+    new_node-> size = node->size - size - sizeof(node_t);
+    new_node->is_free = true;
+    new_node->fwd = next;
+    new_node->bwd = node;
+    if(next != NULL){
+      next->bwd = new_node;
+    }
+    node->size = size;
+    node->fwd = new_node;
   }
-
-  // Update header to correct size and state
-  // todo
 }
 
 node_t* get_header(void* ptr) {
-  // todo
-  return NULL;
+  return (void*)ptr - sizeof(node_t);
 }
 
 void coalesce_nodes(node_t* front, node_t* back) {
   if (front > back) {
     // Check to make sure they're in the right order
-    // todo
+    statusno = ERR_BAD_ARGUMENTS;
     return;
   }
   if (front == back) {
-    // Check to make sure they aren't the same node
-    // todo
+    // Check to make sure they aren't the same node 
+    statusno = ERR_BAD_ARGUMENTS;
     return;
   }
   if (front == NULL || back == NULL) {
-    // Then one of them is already the end of the list
-    // todo
+    // Then one of them is already the end of the list  
+    statusno = ERR_BAD_ARGUMENTS;
     return;
   }
   if ( ! (front->is_free && back->is_free)) {
-    // Then one of them isn't free
-    // todo
+    // Then one of them isn't free 
+    statusno = ERR_CALL_FAILED;
     return;
   }
+
   // We want to do two things: skip over the second node and update size.
-  // todo
+  front->size += back->size + sizeof(node_t);
+  // complete the linked list forward
+  front->fwd = back->fwd;
+  // complete the linked list backwards
+  if (back->fwd != NULL) {
+    back->fwd->bwd = front;
+  }
 }
 
 
 void* mem_alloc(size_t size){
-
   // Check to make sure we are initialized, and if not set statusno and return NULL;
   if(_initialized == 0) {
-    // todo
+    statusno = ERR_UNINITIALIZED;
     return NULL;
   }
 
   // Find a free chunk of memory
-  node_t* node = NULL; // todo
+  node_t* node = find_first_free_chunk(size, _chunklist);
 
   // If finding a node returned NULL then we're out of memory
   if (node == NULL) {
-    // todo
+    statusno = ERR_OUT_OF_MEMORY;
     return NULL;
   }
 
   // Split node to be the appropriate size, since there's no guarantee a free node is the right size already
-  // todo
+  split_node(node, size);
 
-  //todo: fix this return to point at the memory we just allocated
-  return NULL;
+  //return to point at the memory we just allocated (the "tail" of the node)
+  return (void*)((char*)node + sizeof(node_t));
 }
 
-void mem_free(void *ptr){
 
+void mem_free(void *ptr){
   if (ptr == NULL){
     return;
   }
 
   if (ptr < _arena_start || ptr > _arena_end){
     // Then the pointer is outside of the arena
-    // todo
     return;
   }
 
   // Step backward from the pointer to look at the node header
-  // todo
+  node_t* back_chunk = get_header(ptr)->bwd;
 
-  // Free the memory
-  // todo
-
-  // Step forward from the pointer to look at the node header
+  // Get the central header
   node_t *chunk = get_header(ptr);
+  // Free the memory
   chunk->is_free = true;
-  
-  // Insert chunk into free list
-  // todo
-  // insert_into_freelist(chunk, _chunklist);
 
-  // Coalesce together the chunks
-  // todo
+  // Get the forward header  
+  node_t *next_chunk = chunk->fwd;
 
+  // Coalesce together the chunks if possible
+  if (back_chunk != NULL && back_chunk->is_free) {
+    coalesce_nodes(back_chunk, chunk);
+    chunk = back_chunk;
+  }
+  if (next_chunk != NULL && next_chunk->is_free) {
+    coalesce_nodes(chunk, next_chunk);
+  }
 }
 
 void insert_into_freelist(node_t* chunk, node_t* _chunklist) {
   // Keep it ordered by address
-  node_t* curr_node = _chunklist
+  node_t* curr_node = _chunklist;
   while (curr_node != NULL && curr_node > chunk ) {
     curr_node = curr_node->fwd;
   }
@@ -221,4 +241,3 @@ void insert_into_freelist(node_t* chunk, node_t* _chunklist) {
     // We're in the middle of the list
   }
 }
-
