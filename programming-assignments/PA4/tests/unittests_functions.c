@@ -1,14 +1,3 @@
-
-#include <criterion/criterion.h>
-#include <stdio.h>
-#include <time.h>
-#include "../src/student_code.h"
-#include "../src/defines.h"
-#include "../src/memory_management_unit.h"
-
-#define NUM_REPEATS 10
-
-
 Test(Functions, is_entry_valid) {
   PageTableEntry pte = 1;
   cr_assert( !is_entry_valid(pte));
@@ -39,13 +28,13 @@ Test(Functions, is_execute_enabled) {
 
 Test(Functions, convert_PageTableEntry_to_PFN) {
   srand ( time(NULL) );
-  for (int i = 0; i < NUM_REPEATS; i++) {
+  for (int i = 0; i < NUMBER_OF_REPEATS; i++) {
     VirtualAddress addr_to_test = rand() % PAGE_SIZE;
     PageTableEntry pte = (PageTableEntry)addr_to_test
-      | single_bit_mask(VALID_BIT)
-      | single_bit_mask(READ_BIT)
-      | single_bit_mask(WRITE_BIT)
-      | single_bit_mask(EXEC_BIT);
+    | single_bit_mask(VALID_BIT)
+    | single_bit_mask(READ_BIT)
+    | single_bit_mask(WRITE_BIT)
+    | single_bit_mask(EXEC_BIT);
     cr_assert( pte != addr_to_test);
     pte = convert_PageTableEntry_to_PFN(pte);
     cr_assert( pte == addr_to_test );

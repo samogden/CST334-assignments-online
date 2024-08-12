@@ -1,7 +1,19 @@
 #include <criterion/criterion.h>
 #include <signal.h>
-#include "src/common.h"
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdio.h>
+#include <common.h>
 
+// Include src
+#include "process_scheduling.h"
+#include "student_code.h"
+#include "tests.h"
+
+// Define any important factors for tests
+#define FLOAT_EPSILON 0.1
+
+// Include our unit tests
 #include "tests/unittests_helpers.c"
 #include "tests/unittests_fifo.c"
 #include "tests/unittests_priority.c"
@@ -32,19 +44,19 @@ ReportHook(PRE_TEST)(struct criterion_test *test) {
 ReportHook(TEST_CRASH)(struct criterion_test_stats *stats) {
   log_error("Test Crashed.  Caught unexpected signal: ");
   switch (stats->signal) {
-    case SIGILL:
-      log_error("SIGILL (%d). %s\n", stats->signal, "Invalid instruction.");
-      break;
+  case SIGILL:
+    log_error("SIGILL (%d). %s\n", stats->signal, "Invalid instruction.");
+    break;
 
-    case SIGFPE:
-      log_error("SIGFPE (%d). %s\n", stats->signal, "Erroneous arithmetic operation.");
-      break;
+  case SIGFPE:
+    log_error("SIGFPE (%d). %s\n", stats->signal, "Erroneous arithmetic operation.");
+    break;
 
-    case SIGSEGV:
-      log_error("SIGSEGV (%d). %s\n", stats->signal, "Invalid memory access.");
-      break;
+  case SIGSEGV:
+    log_error("SIGSEGV (%d). %s\n", stats->signal, "Invalid memory access.");
+    break;
 
-    default:
-      log_error("%d\n", stats->signal);
+  default:
+    log_error("%d\n", stats->signal);
   }
 }

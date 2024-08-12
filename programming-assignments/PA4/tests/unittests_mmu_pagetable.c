@@ -1,11 +1,3 @@
-
-#include <criterion/criterion.h>
-#include <stdio.h>
-#include "../src/student_code.h"
-#include "../src/defines.h"
-
-#define NUMBER_OF_REPEATS 10
-
 Test(MMU_PageTable, get_pagetableentry__MMU_pagetable) {
   // See the random number
   srand( time(NULL) );
@@ -31,7 +23,7 @@ Test(MMU_PageTable, get_pagetableentry__MMU_pagetable) {
 }
 
 Test(MMU_PageTable, map_page__MMU_pagetable) {
-  // See the random number
+  // Seed the random number
   srand( time(NULL) );
 
   // Create a new MMU
@@ -50,7 +42,7 @@ Test(MMU_PageTable, map_page__MMU_pagetable) {
       page_to_test % 2 % 3, // Something random but repeatable
       page_to_test % 2 % 5, // Something random but repeatable
       page_to_test % 2 % 7 // Something random but repeatable
-    );
+      );
 
     PageTableEntry pte = m.page_pointer[page_to_test];
 
@@ -59,7 +51,7 @@ Test(MMU_PageTable, map_page__MMU_pagetable) {
       (get_mask(NUM_PFN_BITS + NUM_OFFSET_BITS) & pte)
       ==
       (i)
-    );
+      );
 
     cr_assert(is_entry_valid(pte));
     cr_assert(is_read_enabled(pte) == page_to_test % 2 % 3);
@@ -76,7 +68,7 @@ void write_string(MMU m, VirtualAddress va, char* str) {
   for (i = 0; str[i] != '\0'; i++) {
     write_byte(m, va+i, str[i]);
   }
-    write_byte(m, va+i, '\0');
+  write_byte(m, va+i, '\0');
 }
 
 Test(MMU_PageTable, end_to_end) {
@@ -101,7 +93,7 @@ Test(MMU_PageTable, end_to_end) {
   cr_assert_str_eq(
     (char*)get_page(m, va, true, false, false),
     str
-  );
+    );
 
 
   str = "hello";
@@ -109,12 +101,12 @@ Test(MMU_PageTable, end_to_end) {
   cr_assert_str_eq(
     (char*)get_page(m, va, true, false, false),
     str
-  );
+    );
   for (int i = 0; i < strlen(str); i++) {
     cr_assert_eq(
       read_byte(m, va+i),
       str[i]
-    );
+      );
   }
 
   va = (((0b1<<NUM_VPN_BITS)-1)<< NUM_OFFSET_BITS) | 0b0;
@@ -123,12 +115,12 @@ Test(MMU_PageTable, end_to_end) {
   cr_assert_str_eq(
     (char*)get_page(m, va, true, false, false),
     str
-  );
+    );
   for (int i = 0; i < strlen(str); i++) {
     cr_assert_eq(
       read_byte(m, va+i),
       str[i]
-    );
+      );
   }
 
 }

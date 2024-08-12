@@ -1,6 +1,6 @@
-#include "src/student_code.h"
-#include "src/common.h"
+#include "student_code.h"
+#include <common.h>
 
 int main() {
-    return 0;
+  return 0;
 }

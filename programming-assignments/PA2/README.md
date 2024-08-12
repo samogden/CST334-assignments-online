@@ -159,11 +159,16 @@ PROCESS* stcf_process_selector(PROCESS_LIST* pl); // 6 points
 
 ***Question:*** Look at all the unit tests that are being run, specifically at the files.  What order do you think we should look at these unit tests in?  What suite should we consider first, and what suite should we consider last?  Why?
 
+***Note:***
+There's a bunch more functions in `student_code.c` that you'll need to write along the way!
+
 ## Where to start
 
 I strongly recommend starting by looking at the `priority_process_selector` function that needs fixing.
 Look at what it's doing and what functions it is using.
 You need to fix it anyway, and it gives a pattern for a way to approach the other selectors.
+
+***Question:*** Draw out a picture of the layout of memory when we have a bit of it allocated.  Include all of the pointers in the nodes and indicate which will have to change when we split the node.
 
 ## What to submit
 

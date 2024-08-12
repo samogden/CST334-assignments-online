@@ -1,13 +1,4 @@
 
-#include <criterion/criterion.h>
-#include "../src/student_code.h"
-#include<unistd.h>
-#include "stdio.h"
-
-#include "../src/database.h"
-#include "../src/server.h"
-#include "../src/common.h"
-
 typedef struct locks_args_t {
   float delay;
   pthread_mutex_t* mutex;
