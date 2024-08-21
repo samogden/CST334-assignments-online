@@ -3,7 +3,7 @@ Test(MMU_PageTable, get_pagetableentry__MMU_pagetable) {
   srand( time(NULL) );
 
   // Create a new MMU
-  MMU m = new__MMU_pagetable();
+  MMU m = MMU__pagetable__init();
 
   // Create the page pointer (aka the page pointer), so we can use it
   m.page_pointer = calloc(NUM_PAGES, sizeof(PageTableEntry));
@@ -19,7 +19,7 @@ Test(MMU_PageTable, get_pagetableentry__MMU_pagetable) {
     cr_assert(get_pagetableentry__MMU_pagetable(m, page_to_test) == page_to_test);
   }
 
-  cleanup_MMU(m);
+  MMU_destroy(m);
 }
 
 Test(MMU_PageTable, map_page__MMU_pagetable) {
@@ -27,7 +27,7 @@ Test(MMU_PageTable, map_page__MMU_pagetable) {
   srand( time(NULL) );
 
   // Create a new MMU
-  MMU m = new__MMU_pagetable();
+  MMU m = MMU__pagetable__init();
 
   // Create the page pointer (aka the page pointer), so we can use it
   m.page_pointer = calloc(NUM_PAGES, sizeof(PageTableEntry));
@@ -59,7 +59,7 @@ Test(MMU_PageTable, map_page__MMU_pagetable) {
     cr_assert(is_execute_enabled(pte) == page_to_test % 2 % 7);
   }
 
-  cleanup_MMU(m);
+  MMU_destroy(m);
 }
 
 
@@ -74,7 +74,7 @@ void write_string(MMU m, VirtualAddress va, char* str) {
 Test(MMU_PageTable, end_to_end) {
 
   // Create a new MMU
-  MMU m = new__MMU_pagetable();
+  MMU m = MMU__pagetable__init();
 
   for (VPN vpn = 0; vpn < NUM_PAGES ; vpn++) {
     if (vpn == NUM_PAGES - 1) {
