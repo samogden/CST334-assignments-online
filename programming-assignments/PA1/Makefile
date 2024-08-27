@@ -41,6 +41,9 @@ grade:
 clean:
 	rm -rf bin unit_tests debug
 
+check:
+	clang-tidy -checks=bugprone-*,readability-*,-readability-identifier-length,-readability-else-after-return,-bugprone-easily-swappable-parameters,-readability-redundant-control-flow -warnings-as-errors=* src/student_code.c -- -Iinclude/
+
 bin:
 	mkdir -p bin
 
