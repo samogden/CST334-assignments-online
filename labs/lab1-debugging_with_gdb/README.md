@@ -8,7 +8,6 @@ This allows it to run much faster, but is also much harder to understand.
 
 In this lab we'll be talking about compilation flags and we'll be trying out a tool, `gdb` to help is isolate memory issues and figure out what's going wrong.
 
-<<<<<<< HEAD
 ## Getting Started
 
 First things first, create a google document called "Lab1".
