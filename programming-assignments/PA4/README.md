@@ -8,10 +8,10 @@ In this project we're going to build an MMU!
 
 You will be writing the pieces that find free memory, split chunks, free chunks, coalesce chunks, allocate, and free memory!
 
-Also, there are a few questions scattered throughout the source code that you need to answer for the checkpoint this week!
-I've labeled them with "question".
-Note that these are not _just_ in `student_code.*`.
-Also, please remember the context of how you are answering them, in that the goal is to make you dig through the code and think about it a bit.
+
+
+Also, there are a few questions scattered throughout the source code.
+You are not required to answer these but may point to parts that could be very helpful to keep in mind when thinking about this assignment!
 
 ### Functions you'll be writing
 
