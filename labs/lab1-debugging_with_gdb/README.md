@@ -364,7 +364,7 @@ Let's check out our unit test file in `tests/tests-person.c`.
 
 ```c
  1	#include <criterion/criterion.h>
- 2	#include "../src/student_code.h"
+ 2	#include "student_code.h"
  3
  4	TestSuite(Person, .disabled=false);
  5
@@ -479,7 +479,7 @@ The idea is that we can move the problematic piece of code over there and poke a
 Let's copy lines 15-21 over into our main function as such:
 
 ```c
- 1	#include "src/student_code.h"
+ 1	#include "student_code.h"
  2
  3	int main() {
  4	    // Next we poke around at our expectations a bit
@@ -507,7 +507,7 @@ debug.c:9:15: warning: implicit declaration of function 'strcmp' [-Wimplicit-fun
     9 |     cr_assert(strcmp(p2.name, "Douglas Adams") == 0); // Note that we use the strcmp function
       |               ^~~~~~
 debug.c:2:1: note: include '<string.h>' or provide a declaration of 'strcmp'
-    1 | #include "src/student_code.h"
+    1 | #include "student_code.h"
   +++ |+#include <string.h>
     2 |
 /usr/bin/ld: /tmp/cc2m428F.o: in function `main':
@@ -549,7 +549,7 @@ debug.c:10:21: warning: implicit declaration of function 'strcmp' [-Wimplicit-fu
    10 |     printf("%d\n", (strcmp(p2.name, "Douglas Adams") == 0)); // Note that we use the strcmp function
       |                     ^~~~~~
 debug.c:3:1: note: include '<string.h>' or provide a declaration of 'strcmp'
-    2 | #include "src/student_code.h"
+    2 | #include "student_code.h"
   +++ |+#include <string.h>
     3 |
 ```
