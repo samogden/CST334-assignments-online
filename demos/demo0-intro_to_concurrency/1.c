@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <pthread.h>
 
+#define NUM_THREADS 10
+
 typedef struct __myarg_t {
   int a;
   int b;
@@ -19,14 +21,13 @@ void* mythread(void* arg) {
   return r;
 }
 
-#define NUM_THREADS 10
 
 int main(int argc, char* argv[]) {
-
-
+  
   pthread_t p[NUM_THREADS];
-  myreturn_t* ret_vals[NUM_THREADS];
   myarg_t args[NUM_THREADS];
+  myreturn_t* ret_vals[NUM_THREADS];
+  
   for (int i = 0 ; i < NUM_THREADS; i++) {
     args[i].a = i;
     args[i].b = i*2;
